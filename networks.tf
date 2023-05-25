@@ -36,7 +36,7 @@ resource "aws_route_table" "access" {
     vpc_id = aws_vpc.anothervpc.id
     count = var.az_count
     route {
-      gateway_id = aws_internet_gateway.gw.id
+      gateway_id = element(aws_internet_gateway.gw.*.id, count.index)
       cidr_block = "0.0.0.0/0"
     }
 }
